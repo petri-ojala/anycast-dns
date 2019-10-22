@@ -55,7 +55,7 @@ BGP peering has been tested with Ubiquiti EdgeRouter and `gobgpd`.  For the peer
 }
 ```
 
-`dns` defines the health check for the DNS service.  `ip` and `port´ define the DNS server IP and port for the DNS query.  `query` defines the domain to query, the RR type is hardcoded `SOA`.  `timeout` defines the timeout for the query (as `time.Duration`), `interval` defines the health check interval.
+`dns` defines the health check for the DNS service.  `ip` and `port` define the DNS server IP and port for the DNS query.  `query` defines the domain to query, the RR type is hardcoded `SOA`.  `timeout` defines the timeout for the query (as `time.Duration`), `interval` defines the health check interval.
 
 `anycast` defines BGP route announcements.  There are two sources available, interfaces with labels and static announcements.  Labeled interfaces support only IPv4 addresses.  For example `interface` with `lo` and `prefix` with `dns` will look for any `lo:dns*` interfaces.  First interface will get BGP LocalPref of `localpref`, and it is decreased by `decrease` for each subsequent interface.  
 `routes` defines any static routes to announce, both IPv4 and IPv6 are supported.  `label` is a description for the route, `ip` is the IP prefix to announce (only `/32` and `/128` are supported), and `localpref` defines the BGP LocalPref for the route.  
