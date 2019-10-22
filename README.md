@@ -65,11 +65,11 @@ BGP peering has been tested with Ubiquiti EdgeRouter and `gobgpd`.  For the peer
 
 ## Use case
 
-I'm running this configuration in my home network to provide resilient and redundant DNS service.  I have I configured two DNS servers that server DNS with 10.10.10.10 and fd00::10:10:10:10 IP address.  Both are running the `anycast-dns` daemon with different metric configuration.  In case the primary server fails, the secondary server will take over immediately.
+I'm running this configuration in my home network to provide resilient and redundant DNS service.  I have I configured two DNS servers that server DNS with 10.10.10.10 and fd00::10:10:10:10 IP address.  IPv4 is configured with lo:dns* interfaces, IPv6 is static configuration in the anycast-dns.json.  Both are running the `anycast-dns` daemon with different metric configuration.  In case the primary server fails, the secondary server will take over immediately.
 
 I have also a third DNS service running in a Kubernetes cluster that is using `metallb` L3 BGP routing to announce itself as 10.10.10.10 with lower LocalPref.  In case the baremetal DNS servers fail, there might still be DNS service available from the Kubernetes cluster.
 
-DHCP is giving 10.10.10.10 as the DNS server, SLAAC is giving the fd00::10:10:10:10 as IPv6 DNS address (RFC 8106).  I do not use DHCPv6.
+DHCP is giving 10.10.10.10 as the DNS server, SLAAC is giving the fd00::10:10:10:10 as IPv6 DNS address (RFC 8106).  I do not use DHCPv6.  Local network is using different address space (from 172.16/12 and carrier-provided IPv6 prefix).
 
 ## Packages
 
