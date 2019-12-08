@@ -26,13 +26,8 @@ BGP peering has been tested with Ubiquiti EdgeRouter and `gobgpd`.  For the peer
 		"routes": [
 			{
 				"label": "v6-primary",
-				"ip": "fd00::8:8:8:4/128",
+				"ip": "fd00::10:10:10:10/128",
 				"localpref": 200
-			},
-			{
-				"label": "v6-secondary",
-				"ip": "fd00::8:8:4:4/128",
-				"localpref": 190
 			}
 		]
 	},
@@ -71,11 +66,13 @@ I have also a third DNS service running in a Kubernetes cluster that is using `m
 
 DHCP is giving 10.10.10.10 as the DNS server, SLAAC is giving the fd00::10:10:10:10 as IPv6 DNS address (RFC 8106).  I do not use DHCPv6.  Local network is using different address space (from 172.16/12 and carrier-provided IPv6 prefix).
 
+Why would you want to run Anycast DNS at home?  Well, relying on a single DNS server is not very good practise.  If you have two or more DNS servers, and run both IPv4 and IPv6, you end up with at least four IP addresses for the servers.  However most resolver libraries only support three DNS servers and thus will drop some of the IPs or complain about it to the logs.  With anycast DNS at home you can build relatively resilient DNS setup with single IPv4 and IPv6 addresses.
+
 ## Packages
 
 This tool is built on top of these two packages:
 
 * `github.com/osrg/gobgp` for the BGP implementation [https://osrg.github.io/gobgp/](https://osrg.github.io/gobgp/)
 
-* `https://github.com/insomniacslk/dhcp` for the DHCPv4 implementation, used e.g. by Facebook in `dhcplb`
+* `https://github.com/miekg/dns' for the DNS library, used by e.g. CoreDNS
 
