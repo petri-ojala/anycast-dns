@@ -74,5 +74,5 @@ This tool is built on top of these two packages:
 
 * `github.com/osrg/gobgp` for the BGP implementation [https://osrg.github.io/gobgp/](https://osrg.github.io/gobgp/)
 
-* `https://github.com/miekg/dns' for the DNS library, used by e.g. CoreDNS
+* `https://github.com/miekg/dns` for the DNS library, used by e.g. CoreDNS
 
